@@ -8,7 +8,7 @@ module Api
     def index
       @requests = Request.all
 
-      render json: @requests, include: { assertions: { only: :id } }
+      render json: @requests
     end
 
     # GET /requests/1
