@@ -8,7 +8,7 @@ module Api
     def index
       @requests = Request.all
 
-      render json: @requests
+      render json: @requests, include: { assertions: { only: :id } }
     end
 
     # GET /requests/1
@@ -32,7 +32,7 @@ module Api
       error = false
 
       params['_json'].each do |request|
-        @request = Request.new(request_name: request[:request], request_id: request[:id])
+        @request = Request.new(request_name: request[:request], request_id: request[:id], timestamp: request[:timestamp])
 
         unless @request.save
           error = true
@@ -79,7 +79,7 @@ module Api
 
     # Only allow a trusted parameter "white list" through.
     def request_params
-      params.require(:request).permit(:request_name, :request_id)
+      params.require(:request).permit(:request_name, :request_id, :timestamp)
     end
   end
 end
