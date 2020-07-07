@@ -10,14 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_223329) do
+ActiveRecord::Schema.define(version: 2020_07_07_142907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "assertions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "assertion_name"
+    t.string "assertion_result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "request_id"
+    t.index ["request_id"], name: "index_assertions_on_request_id"
+  end
+
   create_table "features", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "feature_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "request_id"
+    t.string "request_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,6 +55,7 @@ ActiveRecord::Schema.define(version: 2020_07_03_223329) do
     t.index ["scenario_id"], name: "index_steps_on_scenario_id"
   end
 
+  add_foreign_key "assertions", "requests"
   add_foreign_key "scenarios", "features"
   add_foreign_key "steps", "scenarios"
 end
