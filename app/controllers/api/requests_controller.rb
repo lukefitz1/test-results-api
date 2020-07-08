@@ -2,6 +2,7 @@
 
 module Api
   class RequestsController < ApplicationController
+    before_action :authenticate_api_key
     before_action :set_request, only: [:show, :update, :destroy]
 
     # GET /requests

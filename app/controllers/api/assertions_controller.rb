@@ -2,6 +2,7 @@
 
 module Api
   class AssertionsController < ApplicationController
+    before_action :authenticate_api_key
     before_action :set_assertion, only: [:show, :update, :destroy]
 
     # GET /assertions

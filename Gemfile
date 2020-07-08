@@ -11,6 +11,7 @@ gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'database_cleaner'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
 end
