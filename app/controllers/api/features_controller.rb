@@ -2,6 +2,7 @@
 
 module Api
   class FeaturesController < ApplicationController
+    before_action :authenticate_api_key
     before_action :set_feature, only: [:show, :update, :destroy]
 
     # GET /features
