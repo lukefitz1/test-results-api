@@ -6,6 +6,7 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
+gem 'rack-cors'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 
 group :development, :test do
