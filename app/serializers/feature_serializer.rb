@@ -3,11 +3,6 @@ class FeatureSerializer < ActiveModel::Serializer
 
   def scenarios
     object.scenarios.map do |scenario|
-      # {
-      #   id: scenario.id,
-      #   scenario_name: scenario.scenario_name,
-      #   steps: scenario.steps
-      # }
       ScenarioSerializer.new(scenario)
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_223604) do
+ActiveRecord::Schema.define(version: 2020_07_27_025625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2020_07_07_223604) do
     t.string "feature_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "suite_id"
+    t.index ["suite_id"], name: "index_features_on_suite_id"
   end
 
   create_table "requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -56,7 +58,15 @@ ActiveRecord::Schema.define(version: 2020_07_07_223604) do
     t.index ["scenario_id"], name: "index_steps_on_scenario_id"
   end
 
+  create_table "suites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "description"
+    t.string "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "assertions", "requests"
+  add_foreign_key "features", "suites"
   add_foreign_key "scenarios", "features"
   add_foreign_key "steps", "scenarios"
 end
