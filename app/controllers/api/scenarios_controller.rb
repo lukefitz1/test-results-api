@@ -2,6 +2,7 @@
 
 module Api
   class ScenariosController < ApplicationController
+    before_action :authenticate_api_key
     before_action :set_scenario, only: [:show, :update, :destroy]
 
     # GET /scenarios

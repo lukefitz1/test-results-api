@@ -2,6 +2,7 @@
 
 module Api
   class StepsController < ApplicationController
+    before_action :authenticate_api_key
     before_action :set_step, only: [:show, :update, :destroy]
 
     # GET /steps

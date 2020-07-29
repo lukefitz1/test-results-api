@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_025625) do
+ActiveRecord::Schema.define(version: 2020_07_28_234522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 2020_07_27_025625) do
     t.datetime "updated_at", null: false
     t.uuid "request_id"
     t.index ["request_id"], name: "index_assertions_on_request_id"
+  end
+
+  create_table "collections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "description"
+    t.string "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "features", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -39,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_07_27_025625) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "timestamp"
+    t.uuid "collection_id"
+    t.index ["collection_id"], name: "index_requests_on_collection_id"
   end
 
   create_table "scenarios", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -67,6 +76,7 @@ ActiveRecord::Schema.define(version: 2020_07_27_025625) do
 
   add_foreign_key "assertions", "requests"
   add_foreign_key "features", "suites"
+  add_foreign_key "requests", "collections"
   add_foreign_key "scenarios", "features"
   add_foreign_key "steps", "scenarios"
 end

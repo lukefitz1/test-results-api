@@ -2,6 +2,7 @@
 
 module Api
   class SuitesController < ApplicationController
+    before_action :authenticate_api_key
     before_action :set_suite, only: [:show, :update, :destroy]
 
     # GET /suites
@@ -27,7 +28,7 @@ module Api
       end
     end
 
-    # POST /suites
+    # POST /suites/create_suite
     def create_suite
       error = false
 
