@@ -4,6 +4,7 @@ class RequestSerializer < ActiveModel::Serializer
   def assertions
     object.assertions.map do |assertion|
       {
+        id: assertion.id,
         assertion_name: assertion.assertion_name,
         assertion_result: assertion.assertion_result
       }
