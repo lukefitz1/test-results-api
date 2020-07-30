@@ -7,7 +7,11 @@ module Api
 
     # GET /suites
     def index
-      @suites = Suite.all
+      @suites = if params['latest'] == 'true'
+                 Suite.order('created_at').last
+               else
+                 Suite.all
+               end
 
       render json: @suites
     end

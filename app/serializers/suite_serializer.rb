@@ -1,5 +1,5 @@
 class SuiteSerializer < ActiveModel::Serializer
-  attributes :id, :description, :date, :features
+  attributes :id, :description, :date, :created_at, :features
 
   def features
     object.features.map do |feature|

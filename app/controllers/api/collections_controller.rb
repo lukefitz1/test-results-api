@@ -7,7 +7,11 @@ module Api
 
     # GET /collections
     def index
-      @collections = Collection.all
+      @collections = if params['latest'] == 'true'
+                       Collection.order('created_at').last
+                     else
+                       Collection.all
+                     end
 
       render json: @collections
     end
